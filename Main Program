@@ -1,0 +1,107 @@
+package arrays;
+import java.util.Arrays;
+import javax.swing.*;
+public class Random 
+{
+	/*
+	 * Programm erzeugt 15 gerade Zufallszahlen (Wertebereich 2 <= X <= 48) in einem Array und gibt diese aus
+	 */
+
+	public static void main(String[] args) 
+	{	
+		boolean gefunden = false;
+		int Mittelwert =0, Summe =0, Min =0, Max =0;
+		int Arraylänge =0;
+		int Biswert =0;
+		int Benutzerzahl =0;
+		int Position = 0;
+		
+		//Benutzereingabe Arraylänge Eingabe
+				Arraylänge = Integer.parseInt (JOptionPane.showInputDialog("Wie viele Zahlen sollen erstellt werden? ")); 
+				
+		int ArrayName [] = new int [Arraylänge]; // Array mit 15 Elementen deklarieren
+		
+		//Benutzereingabe Biswert Eingabe
+		Biswert = Integer.parseInt (JOptionPane.showInputDialog("Bis zu welchem Wertebereich sollen die Zahlen generiert werden ")); 
+		
+		
+		//Array mit 0 Initialisiert
+		for(int index=0 ; index < ArrayName.length; index++)
+			{
+			ArrayName[index] = 0;
+			}
+		
+		//Array mit geraden Zufallszahlen fьllen
+		for(int index=0 ; index < ArrayName.length; index++)
+			do
+			{
+			ArrayName[index] = (int) (Math.random()*Biswert)+2; 
+			}
+			while (ArrayName[index] %2 ==1);
+		
+		
+		do
+		{
+			try
+			{
+		Benutzerzahl = Integer.parseInt (JOptionPane.showInputDialog
+				("Nach welcher geraden Zahl im Bereich 2 bis " + Biswert + " soll das Array durchsucht werden?"));
+			}
+			catch (Exception X)
+			{
+				JOptionPane.showMessageDialog(null," Ungültige Eingabe");
+			}
+			}
+		while ((Benutzerzahl <2) || (Benutzerzahl > Biswert) || (Benutzerzahl %2 ==1));
+		
+	
+		
+		for(int index=0 ; index < ArrayName.length; index++)
+		{
+			if(Benutzerzahl == ArrayName[index])
+			{	
+			gefunden = true;
+			Position = index;
+			break;
+			}
+			
+		}
+		
+			if (gefunden == false)
+				JOptionPane.showMessageDialog(null," Gesuchte Zahl " + Benutzerzahl +
+						" kommt in unserem Array nicht vor");
+			
+			else JOptionPane.showMessageDialog(null," Gesuchte Zahl " 
+					+ Benutzerzahl + " hat den Index: " + Position);
+			
+			//AVG, Max & Min
+			
+			for(int index=0 ; index < ArrayName.length; index++)
+			{
+				Summe = Summe + ArrayName[index];
+			}
+			Mittelwert = Summe / ArrayName.length;
+			
+			// Minumum und Maximum ermitteln
+			
+			Min = ArrayName[0];
+			Max = ArrayName[0];
+			
+			for(int index=1 ; index < ArrayName.length; index++)
+			{
+			if (ArrayName[index] < Min) Min = ArrayName[index];
+			if (ArrayName[index] > Max) Max = ArrayName[index];
+			}
+				
+			Arrays.sort (ArrayName);
+		//Array in einen Text kopieren und ausgeben
+		
+		JOptionPane.showMessageDialog(null, "Das Array beinhaltet: " + 
+				Arrays.toString(ArrayName) + "\n" +
+		"Summe: " + Summe + "\n" +
+				"Mittelwert: " + Mittelwert + "\n" +
+		"Kleinster Wert: " + Min + "\n" +
+				"Größter Wert: " + Max);
+	}
+	
+}
